@@ -4,7 +4,7 @@
 Este repositório contém o conjunto de dados, scripts de análise e visualizações referentes ao artigo "Mortalidade por Doença de Alzheimer no Brasil: Um Estudo Observacional e Descritivo, 2016-2021".
 
 AUTORES:
-DURAM, Nathalya Rocha; OLIVEIRA, Claudia J. Cespede; OLIVEIRA, Emily F. Sales; SILVA, André Luiz Ferreira
+DURAM, N.R.; OLIVEIRA, C.J.C.; OLIVEIRA, E.F.S; SILVA, A.L.F.
 
 O objetivo deste projeto é analisar o perfil epidemiológico e as tendências temporais da mortalidade por Alzheimer no território brasileiro, estratificando os dados por sexo, faixa etária e região geográfica.
 
