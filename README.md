@@ -14,7 +14,6 @@ Tendências: Crescimento significativo na maioria dos estados, com padrões hete
 
 🛠️ Tecnologias e Ferramentas
 Linguagem: R
-Pacotes Principais: ggplot2 (visualização), dplyr (manipulação de dados), broom (modelagem estatística).
 Estatística: Regressão Log-Linear para o cálculo da Variação Percentual Anual (VPA).
 Software: BioEstat 5.0
 
