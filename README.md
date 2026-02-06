@@ -1,5 +1,5 @@
 
-#Mortalidade por Doença de Alzheimer no Brasil (2016-2021)
+#MORTALIDADE POR DOENÇA DE ALZHEIMER NO BRASIL, 2016-2021: UM ESTUDO ECOLÓGICO DE SÉRIE TEMPORAL
 
 Este repositório contém o conjunto de dados, scripts de análise e visualizações referentes ao artigo "MORTALIDADE POR DOENÇA DE ALZHEIMER NO BRASIL, 2016-2021: UM ESTUDO ECOLÓGICO DE SÉRIE TEMPORAL".
 
