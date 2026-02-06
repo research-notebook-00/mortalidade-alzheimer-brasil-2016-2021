@@ -1,8 +1,39 @@
-1. Taxa de Mortalidade Média (TMM)A taxa foi calculada dividindo-se o número de óbitos pela população residente no período, expressa por 100.000 habitantes.Fórmula:$$TMM = \left( \frac{\text{Número de óbitos (CID-10: G30)}}{\text{População residente}} \right) \times 100.000$$2. Modelo de Regressão Log-LinearVocê utilizou a transformação logarítmica das taxas para estabilizar a variância e calcular a tendência. O modelo adotado para cada grupo foi:Equação: $$\ln(Y) = \beta_0 + \beta_1 X + \epsilon$$$Y$: Taxa de mortalidade ajustada.$X$: Ano de notificação (variável independente).$\beta_1$: Coeficiente de regressão que indica a inclinação da reta.3. Variação Percentual Anual (VPA)A VPA quantifica a velocidade de mudança da taxa ao longo dos anos. Ela é derivada diretamente do coeficiente $\beta_1$ da regressão:Fórmula: $$VPA = (e^{\beta_1} - 1) \times 100$$(Nota: No seu texto, você mencionou o uso de base 10 na fórmula, mas o padrão para regressão log-linear é a base neperiana ($e$). Verifique se o Software BioEstat utilizou $\ln$ ou $\log_{10}$).4. Intervalo de Confiança de 95% (IC95%)O intervalo de confiança para a VPA foi calculado utilizando os limites inferior e superior do coeficiente $\beta_1$:
+#Metodologia estátistica: 
+
+1. Taxa de Mortalidade Média (TMM)
+A taxa foi calculada dividindo-se o número de óbitos pela população residente no período, expressa por 100.000 habitantes.
+Fórmula:
+
+TMM = (N° de óbitos {CID-10: 30} / População residente) * 100.000  
+
+Modelo de Regressão Log-Linear
+Foi realizado a transformação logarítmica das taxas para estabilizar a variância e calcular a tendência.
+O modelo adotado para cada grupo foi:
+Equação: 
+
+  Y' = a + bX  
+
+Y: Taxa de mortalidade ajustada.
+X: Ano de notificação (variável independente).
+b: Coeficiente de regressão que indica a inclinação da reta.
+
+3. Variação Percentual Anual (VPA):
+A VPA quantifica a velocidade de mudança da taxa ao longo dos anos.
+Ela é derivada diretamente do coeficiente b da regressão:
 Fórmula: 
-IC_{95%} = [(e^b - 1) \times 100 \ ; \ (e^{\beta_{1, \text{sup}}} - 1) \times 100]$$5.
-Significância Estatística (p-valor)
+
+VPA = (e^{b} - 1) * 100
+
+4. Intervalo de Confiança de 95% (IC95%)
+O intervalo de confiança para a VPA foi calculado utilizando os limites inferior e superior do coeficiente:
+Fórmula: 
+
+IC_{95%} = (e^{b1} - 1)) * 100 -> IC95% MÍNIMO DA VPA.
+IC_{95%} = (e^{b2} - 1) * 100 -> IC95% MÁXIMO DA VPA.
+
+5. Significância Estatística (p-valor)
 As tendências foram consideradas estatisticamente significativas quando o p-valor foi inferior a 0,05.
+
 Se p < 0,05 e VPA for positiva: Tendência Ascendente.
 Se p < 0,05 e VPA for negativa: Tendência Descendente.
 Se p >= 0,05: Tendência Estacionária (ou não significativa).
