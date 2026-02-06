@@ -1,0 +1,85 @@
+o script utilizado para geração da imagem no Rstudio foi baseado no exemplo a seguir:
+# ==============================================================================
+# Título: Análise de Tendência da Mortalidade por Alzheimer (2016-2021)
+# Objetivo: Gerar o gráfico de small multiples com significância estatística
+# ==============================================================================
+
+# 1. CARREGAR PACOTES
+if(!require(pacman)) install.packages("pacman")
+pacman::p_load(tidyverse, broom, ggthemes)
+
+# 2. CARREGAMENTO E ESTRUTURAÇÃO DOS DADOS
+# Supondo que seus dados estejam em um CSV chamado 'dados_alzheimer.csv'
+# Colunas necessárias: Estado, Regiao, Ano, Taxa
+# dados <- read.csv("dados_alzheimer.csv")
+
+# Exemplo da estrutura necessária (caso queira testar o código):
+# dados <- data.frame(
+#   Estado = rep(c("Acre", "Rondônia", "São Paulo"), each = 6),
+#   Regiao = rep(c("Norte", "Norte", "Sudeste"), each = 6),
+#   Ano = rep(2016:2021, 3),
+#   Taxa = runif(18, 0.5, 3.0) 
+# )
+
+# 3. CÁLCULO DA ESTATÍSTICA (REGRESSÃO LINEAR)
+# Vamos calcular o p-valor para cada estado para definir o tipo de linha
+stats_tendencia <- dados %>%
+  group_by(Estado) %>%
+  do(model = lm(Taxa ~ Ano, data = .)) %>%
+  tidy(model) %>%
+  filter(term == "Ano") %>%
+  mutate(Significancia = ifelse(p.value < 0.05, "Significativo", "Não Significativo")) %>%
+  select(Estado, Significancia)
+
+# Unindo a significância ao dataframe principal
+dados_plot <- left_join(dados, stats_tendencia, by = "Estado")
+
+# 4. CRIAÇÃO DO GRÁFICO (GGPLOT2)
+grafico_final <- ggplot(dados_plot, aes(x = Ano, y = Taxa, group = Estado, color = Estado)) +
+  
+  # Camada de Linhas: o tipo de linha (linetype) depende da significância
+  geom_line(aes(linetype = Significancia), size = 0.8) +
+  
+  # Camada de Pontos
+  geom_point(size = 1.2, alpha = 0.7) +
+  
+  # Divisão por Regiões (Facetas)
+  # scales = "free_y" permite que o eixo Y se ajuste aos valores de cada região
+  facet_wrap(~Regiao, scales = "free_y", ncol = 3) +
+  
+  # Definição manual das linhas (Sólida para p<0.05, Tracejada para p>=0.05)
+  scale_linetype_manual(values = c("Não Significativo" = "dashed", "Significativo" = "solid")) +
+  
+  # Estética de Cores (Paleta discreta para muitos estados)
+  scale_color_manual(values = colorRampPalette(c("#8c510a", "#d8b365", "#01665e", "#5ab4ac", "#762a83"))(length(unique(dados$Estado)))) +
+  
+  # Rótulos e Títulos
+  labs(
+    title = "Figura 1 – Tendência da Taxa de Mortalidade por Alzheimer Ajustada, por Região e Estado, Brasil, 2016-2021.",
+    x = "Ano",
+    y = "Taxa de Mortalidade Ajustada (por 100.000 hab.)",
+    color = "Estados",
+    linetype = "Significância (p < 0,05)"
+  ) +
+  
+  # Tema Acadêmico
+  theme_bw() +
+  theme(
+    strip.background = element_rect(fill = "white"),
+    strip.text = element_text(face = "bold", size = 10),
+    legend.title = element_text(face = "bold", size = 9),
+    legend.text = element_text(size = 8),
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(size = 11, face = "bold", hjust = 0.5)
+  )
+
+# 5. VISUALIZAR E SALVAR
+print(grafico_final)
+
+# Salvar em alta resolução para o artigo
+ggsave("figura1_alzheimer_tendencia.tiff", 
+       plot = grafico_final, 
+       width = 12, 
+       height = 8, 
+       dpi = 300, 
+       compression = "lzw")
