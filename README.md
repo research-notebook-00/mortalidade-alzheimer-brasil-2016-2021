@@ -24,5 +24,3 @@ Este projeto está licenciado sob a Licença MIT - consulte o arquivo LICENSE pa
 ✍️ Citação
 Se este código ou os dados forem úteis para a sua pesquisa, por favor, cite o artigo original.
 
-AUTORES:
-DURAM, N.R.; OLIVEIRA, C.J.C.; OLIVEIRA, E.F.S; SILVA, A.L.F.
